@@ -317,6 +317,8 @@ public enum CombatSpecial {
         int specialCheck = 10;
         int specialBar = player.getWeapon().getSpecialMeter();
         int specialAmount = player.getSpecialPercentage().get() / 10;
+        
+        player.getEncoder().sendSpecialPercetnage(player.getSpecialPercentage().get());
 
         for (int i = 0; i < 10; i++) {
             player.getEncoder().sendUpdateSpecial(--specialBar, specialAmount >= specialCheck ? 500 : 0);

@@ -31,7 +31,7 @@ final class DefaultMeleeCombatStrategy implements CombatStrategy {
 
     @Override
     int attackDelay(CharacterNode character) {
-        character.getAttackSpeed()
+        character.getAttackDelay()
     }
 
     @Override

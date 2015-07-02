@@ -1,5 +1,8 @@
 package com.asteria.game.item;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.asteria.game.item.container.Equipment;
 
 /**
@@ -7,87 +10,102 @@ import com.asteria.game.item.container.Equipment;
  *
  * @author lare96 <http://github.com/lare96>
  */
-public final class ItemDefinition {
+public class ItemDefinition {
 
     /**
      * The array that contains all of the item definitions.
      */
-    public static final ItemDefinition[] DEFINITIONS = new ItemDefinition[7956];
+    public static ItemDefinition[] DEFINITIONS = new ItemDefinition[13223];
 
     /**
      * The identifier for the item.
      */
-    private final int id;
+    public int id;
 
     /**
      * The proper name of the item.
      */
-    private final String name;
+    public String name;
 
     /**
      * The description of the item.
      */
-    private final String description;
+    public String description;
 
     /**
      * The equipment slot of this item.
      */
-    private final int equipmentSlot;
+    public int equipmentSlot;
+    
+    /**
+     * The flag that determines if the item is equipable.
+     */
+    public boolean equipable;
 
     /**
      * The flag that determines if the item is noteable.
      */
-    private final boolean noteable;
+    public boolean noteable;
 
     /**
      * The flag that determines if the item is stackable.
      */
-    private final boolean stackable;
+    public boolean stackable;
+    
+    /**
+     * The flag that determines if the item can be traded.
+     */
+    public boolean tradeable;
 
     /**
      * The special store price of this item.
      */
-    private final int specialPrice;
+    public int specialPrice;
 
     /**
      * The general store price of this item.
      */
-    private final int generalPrice;
+    public int generalPrice;
 
     /**
      * The low alch value of this item.
      */
-    private final int lowAlchValue;
+    public int lowAlchValue;
 
     /**
      * The high alch value of this item.
      */
-    private final int highAlchValue;
+    public int highAlchValue;
 
     /**
      * The weight value of this item.
      */
-    private final double weight;
+    public double weight;
 
     /**
      * The array of bonuses for this item.
      */
-    private final int[] bonus;
+    public int[] bonus;
+    
+    /**
+     * The array of actions for this item.
+     */
+    public String[] actions;
 
     /**
      * The flag that determines if this item is two-handed.
      */
-    private final boolean twoHanded;
+    public boolean twoHanded;
 
     /**
      * The flag that determines if this item is a full helmet.
      */
-    private final boolean fullHelm;
-
+    public boolean fullHelm;
+    
     /**
      * The flag that determines if this item is a platebody.
      */
-    private final boolean platebody;
+    public boolean platebody;
 
     /**
      * Creates a new {@link ItemDefinition}.
@@ -100,6 +118,8 @@ public final class ItemDefinition {
      *            the description of the item.
      * @param equipmentSlot
      *            the equipment slot of this item.
+     * @param notedId
+     * 			  the noted item id of this item.
      * @param noteable
      *            the flag that determines if the item is noteable.
      * @param stackable
@@ -116,6 +136,8 @@ public final class ItemDefinition {
      *            the weight value of this item.
      * @param bonus
      *            the array of bonuses for this item.
+     * @param actions
+     * 			  the array of actions for this item.
      * @param twoHanded
      *            the flag that determines if this item is two-handed.
      * @param fullHelm
@@ -123,21 +145,24 @@ public final class ItemDefinition {
      * @param platebody
      *            the flag that determines if this item is a platebody.
      */
-    public ItemDefinition(int id, String name, String description, int equipmentSlot, boolean noteable, boolean stackable,
-        int specialPrice, int generalPrice, int lowAlchValue, int highAlchValue, double weight, int[] bonus, boolean twoHanded,
+    public ItemDefinition(int id, String name, String description, int equipmentSlot, boolean equipable, boolean noteable, boolean stackable, boolean tradeable,
+    		int specialPrice, int generalPrice, int lowAlchValue, int highAlchValue, double weight, int[] bonus, String[] actions, boolean twoHanded,
         boolean fullHelm, boolean platebody) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.equipmentSlot = equipmentSlot;
+        this.equipable = equipable;
         this.noteable = noteable;
         this.stackable = stackable;
+        this.tradeable = tradeable;
         this.specialPrice = specialPrice;
         this.generalPrice = generalPrice;
         this.lowAlchValue = lowAlchValue;
         this.highAlchValue = highAlchValue;
         this.weight = weight;
         this.bonus = bonus;
+        this.actions = actions;
         this.twoHanded = twoHanded;
         this.fullHelm = fullHelm;
         this.platebody = platebody;
@@ -147,9 +172,10 @@ public final class ItemDefinition {
     /**
      * The method that erases the prayer bonus from ranged weapons.
      */
-    private void prayerBonus() {
+    public void prayerBonus() {
         if (equipmentSlot == Equipment.ARROWS_SLOT || name.contains("knife") || name.contains("dart") || name.contains("thrownaxe") || name
             .contains("javelin")) {
+        	if(bonus != null)
             bonus[11] = 0;
         }
     }
@@ -198,6 +224,15 @@ public final class ItemDefinition {
     public boolean isNoted() {
         return description.equals("Swap this note at any bank for the " + "equivalent item.");
     }
+    
+    /**
+     * Determines if the item is equipable or not.
+     *
+     * @return {@code true} if the item is equipable, {@code false} otherwise.
+     */
+    public boolean isEquipable() {
+        return equipable;
+    }
 
     /**
      * Determines if the item is noteable or not.
@@ -215,6 +250,15 @@ public final class ItemDefinition {
      */
     public boolean isStackable() {
         return stackable;
+    }
+    
+    /**
+     * Determines if the item is tradable or not.
+     *
+     * @return {@code true} if the item is tradeable, {@code false} otherwise.
+     */
+    public boolean isTradeable() {
+        return tradeable;
     }
 
     /**
@@ -298,5 +342,59 @@ public final class ItemDefinition {
      */
     public boolean isPlatebody() {
         return platebody;
+    }
+    
+    /**
+     * Gets the flag if the item contrains the action.
+     * 
+     * @param action the action to check.
+     * @return {@code true} if this item has the action, {@code false}
+     *         otherwise.
+     */
+    public boolean hasAction(String action) {
+    	for(String act : actions) {
+    		if(act.equals(action))
+    			return true;
+    	}
+    	return false;
+    }
+    
+    /**
+     * Gets the JSON object.
+     * @return
+     */
+    public JSONObject getJson() {
+    	JSONObject o = new JSONObject();
+    	o.put("id", id);
+    	o.put("name", name);
+    	o.put("examine", description);
+    	o.put("equipmentSlot", equipmentSlot);
+    	o.put("equipable", equipable);
+    	o.put("noteable", noteable);
+    	o.put("stackable", stackable);
+    	o.put("tradeable", tradeable);
+    	o.put("specialStorePrice", specialPrice);
+    	o.put("generalStorePrice", generalPrice);
+    	o.put("highAlchValue", highAlchValue);
+    	o.put("lowAlchValue", lowAlchValue);
+    	o.put("weight", weight);
+    	
+    	JSONArray bonuses = new JSONArray();
+    	for(int b = 0; b < 14; b++) {
+    		bonuses.add(bonus == null ? 0 : (b >= bonus.length ? 0 : bonus[b]));
+    	}
+    	o.put("bonuses", bonuses);
+    	
+    	JSONArray acts = new JSONArray();
+    	if(actions != null) {
+    		for(String a : actions) {
+    			acts.add(a);
+    		}
+    		o.put("actions", acts);
+    	}
+    	o.put("twoHanded", twoHanded);
+    	o.put("platebody", platebody);
+    	o.put("fullHelm", fullHelm);
+    	return o;
     }
 }

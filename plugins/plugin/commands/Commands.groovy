@@ -8,6 +8,7 @@ import com.asteria.game.character.npc.Npc
 import com.asteria.game.character.player.Player
 import com.asteria.game.character.player.Rights
 import com.asteria.game.character.player.serialize.PlayerSerialization
+import com.asteria.game.character.player.skill.Skill;
 import com.asteria.game.character.player.skill.SkillData
 import com.asteria.game.character.player.skill.Skills
 import com.asteria.game.item.Item
@@ -100,7 +101,8 @@ final class Commands implements PluginListener<CommandPlugin> {
                     break
                 case "master":
                     player.skills.length.times {
-                        Skills.experience(player, (Integer.MAX_VALUE - player.skills[it].experience), it)
+                        Skills.experience(player, Skill.MAXIMUM_EXPERIENCE, it)
+						System.out.println(player.skills[it].level)
                     }
                     break
                 case "tele":

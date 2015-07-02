@@ -102,7 +102,7 @@ public final class Npc extends CharacterNode {
     }
 
     @Override
-    public int getAttackSpeed() {
+    public int getAttackDelay() {
         return this.getDefinition().getAttackSpeed();
     }
 

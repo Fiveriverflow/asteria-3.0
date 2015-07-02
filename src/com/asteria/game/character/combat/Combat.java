@@ -135,7 +135,7 @@ public final class Combat {
      * The names of all the bonuses in their exact identified slots.
      */
     public static final String[] BONUS_NAMES = { "Stab", "Slash", "Crush", "Magic", "Range", "Stab", "Slash", "Crush", "Magic", "Range",
-            "Strength", "Prayer" };
+            "Melee strength", "ranged strength", "magic damange", "prayer" };
 
     /**
      * The hash collection of all the NPCs mapped to their combat strategies.

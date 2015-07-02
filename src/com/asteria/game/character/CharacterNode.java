@@ -251,7 +251,7 @@ public abstract class CharacterNode extends Node {
      *
      * @return the attack speed.
      */
-    public abstract int getAttackSpeed();
+    public abstract int getAttackDelay();
 
     /**
      * Gets this character's current health.

@@ -26,7 +26,9 @@ public final class ItemDefinitionLoader extends JsonLoader {
         int index = reader.get("id").getAsInt();
         String name = Objects.requireNonNull(reader.get("name").getAsString());
         String description = Objects.requireNonNull(reader.get("examine").getAsString());
-        int equipmentSlot = reader.get("equipmentType").getAsInt();
+        int equipmentSlot = reader.get("equipmentSlot").getAsInt();
+        boolean equipable = reader.get("equipable").getAsBoolean();
+        boolean tradeable = reader.get("tradeable").getAsBoolean();
         boolean noteable = reader.get("noteable").getAsBoolean();
         boolean stackable = reader.get("stackable").getAsBoolean();
         int specialPrice = reader.get("specialStorePrice").getAsInt();
@@ -35,11 +37,13 @@ public final class ItemDefinitionLoader extends JsonLoader {
         int lowAlchValue = reader.get("lowAlchValue").getAsInt();
         double weight = reader.get("weight").getAsDouble();
         int[] bonus = builder.fromJson(reader.get("bonuses").getAsJsonArray(), int[].class);
+        String[] actions = builder.fromJson(reader.get("actions").getAsJsonArray(), String[].class);
         boolean twoHanded = reader.get("twoHanded").getAsBoolean();
         boolean platebody = reader.get("platebody").getAsBoolean();
         boolean fullHelm = reader.get("fullHelm").getAsBoolean();
 
-        ItemDefinition.DEFINITIONS[index] = new ItemDefinition(index, name, description, equipmentSlot, noteable, stackable, specialPrice,
-            generalPrice, lowAlchValue, highAlchValue, weight, bonus, twoHanded, fullHelm, platebody);
+        ItemDefinition.DEFINITIONS[index] = new ItemDefinition(index, name, description, equipmentSlot, equipable, noteable, stackable, tradeable,
+        		specialPrice, generalPrice, lowAlchValue, highAlchValue, weight, bonus, actions, twoHanded,
+                fullHelm, platebody);
     }
 }

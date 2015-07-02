@@ -64,7 +64,7 @@ final class DefaultRangedCombatStrategy implements CombatStrategy {
 
     @Override
     int attackDelay(CharacterNode character) {
-        character.getAttackSpeed()
+        character.getAttackDelay()
     }
 
     @Override

@@ -93,6 +93,22 @@ public final class PacketEncoder {
         player.getSession().send(out);
         return this;
     }
+    
+    /**
+     * The packet that updates the special orb with {@code amount} of special
+     * energy.
+     *
+     * @param percentage
+     *            the amount of energy to update with.
+     * @return an instance of this encoder.
+     */
+    public PacketEncoder sendSpecialPercetnage(int percentage) {
+        DataBuffer out = DataBuffer.create();
+        out.newPacket(76, player.getSession().getEncryptor());
+        out.putShort(percentage);
+        player.getSession().send(out);
+        return this;
+    }
 
     /**
      * The packets that display {@code str} on an empty chatbox.

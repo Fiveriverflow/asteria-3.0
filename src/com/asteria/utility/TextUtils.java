@@ -1,5 +1,7 @@
 package com.asteria.utility;
 
+import java.util.stream.IntStream;
+
 /**
  * The static-utility class that contains text utility functions.
  *
@@ -124,4 +126,37 @@ public final class TextUtils {
         }
         return Integer.toString(price);
     }
+    
+	/**
+	 * Hashes a {@code String} using Jagex's algorithm, this method should be
+	 * used to convert actual names to hashed names to lookup files within the
+	 * {@link FileSystem}.
+	 * @param string The string to hash.
+	 * @return The hashed string.
+	 */
+	public static int hash(String string) {
+		return _hash(string.toUpperCase());
+	}
+
+	/**
+	 * Hashes a {@code String} using Jagex's algorithm, this method should be
+	 * used to convert actual names to hashed names to lookup files within the
+	 * {@link FileSystem}.
+	 * <p>
+	 * This method should <i>only</i> be used internally, it is marked
+	 * deprecated as it does not properly hash the specified {@code String}. The
+	 * functionality of this method is used to create a proper {@code String}
+	 * {@link #hash(String) <i>hashing method</i>}. The scope of this method has
+	 * been marked as {@code private} to prevent confusion.
+	 * </p>
+	 * @param string The string to hash.
+	 * @return The hashed string.
+	 * @deprecated This method should only be used internally as it does not
+	 * correctly hash the specified {@code String}. See the note
+	 * below for more information.
+	 */
+	@Deprecated
+	private static int _hash(String string) {
+		return IntStream.range(0, string.length()).reduce(0, (hash, index) -> hash * 61 + string.charAt(index) - 32);
+	}
 }

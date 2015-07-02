@@ -36,6 +36,7 @@ import com.asteria.game.character.player.content.TeleportSpell;
 import com.asteria.game.character.player.content.TradeSession;
 import com.asteria.game.character.player.content.ViewingOrb;
 import com.asteria.game.character.player.content.WeaponAnimation;
+import com.asteria.game.character.player.content.WeaponDelay;
 import com.asteria.game.character.player.content.WeaponInterface;
 import com.asteria.game.character.player.dialogue.DialogueChainBuilder;
 import com.asteria.game.character.player.dialogue.OptionType;
@@ -146,7 +147,7 @@ public final class Player extends CharacterNode {
     /**
      * The array of attack and defence bonus values.
      */
-    private final int[] bonus = new int[12];
+    private final int[] bonus = new int[14];
 
     /**
      * The array of booleans determining which prayers are active.
@@ -266,6 +267,11 @@ public final class Player extends CharacterNode {
      * The weapon interface this player currently has open.
      */
     private WeaponInterface weapon;
+    
+    /**
+     * The attack delay of the weapon.
+     */
+    private WeaponDelay weaponDelay;
 
     /**
      * The current teleport stage that this player is in.
@@ -444,6 +450,7 @@ public final class Player extends CharacterNode {
         MinigameHandler.execute(this, m -> m.onLogin(this));
         WeaponInterface.execute(this, equipment.get(Equipment.WEAPON_SLOT));
         WeaponAnimation.execute(this, equipment.get(Equipment.WEAPON_SLOT));
+        encoder.sendSpecialPercetnage(getSpecialPercentage().get());
         encoder.sendByteState(173, super.getMovementQueue().isRunning() ? 1 : 0);
         encoder.sendByteState(172, super.isAutoRetaliate() ? 0 : 1);
         encoder.sendByteState(fightType.getParent(), fightType.getChild());
@@ -518,14 +525,15 @@ public final class Player extends CharacterNode {
     }
 
     @Override
-    public int getAttackSpeed() {
-        int speed = weapon.getSpeed();
+    public int getAttackDelay() {
+        int delay = weaponDelay.getDelay();
         if (fightType == FightType.CROSSBOW_RAPID || fightType == FightType.SHORTBOW_RAPID || fightType == FightType.LONGBOW_RAPID || fightType == FightType.DART_RAPID || fightType == FightType.KNIFE_RAPID || fightType == FightType.THROWNAXE_RAPID || fightType == FightType.JAVELIN_RAPID) {
-            speed--;
+            delay--;
         } else if (fightType == FightType.CROSSBOW_LONGRANGE || fightType == FightType.SHORTBOW_LONGRANGE || fightType == FightType.LONGBOW_LONGRANGE || fightType == FightType.DART_LONGRANGE || fightType == FightType.KNIFE_LONGRANGE || fightType == FightType.THROWNAXE_LONGRANGE || fightType == FightType.JAVELIN_LONGRANGE) {
-            speed++;
+            delay++;
         }
-        return speed;
+        System.out.println(delay);
+        return delay;
     }
 
     @Override
@@ -1330,6 +1338,25 @@ public final class Player extends CharacterNode {
      */
     public void setWeapon(WeaponInterface weapon) {
         this.weapon = weapon;
+    }
+    
+    /**
+     * Gets the weapon delay this player is currently using.
+     *
+     * @return the weapon delay.
+     */
+    public WeaponDelay getWeaponDelay() {
+        return weaponDelay;
+    }
+
+    /**
+     * Sets the value for {@link Player#weaponDelay}.
+     *
+     * @param weaponDelay
+     *            the new value to set.
+     */
+    public void setWeaponDelay(WeaponDelay weaponDelay) {
+        this.weaponDelay = weaponDelay;
     }
 
     /**

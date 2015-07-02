@@ -15,102 +15,102 @@ public final class NpcDefinition {
     /**
      * The identification for this NPC.
      */
-    private final int id;
+    public int id;
 
     /**
      * The name of this NPC.
      */
-    private final String name;
+    public String name;
 
     /**
      * The description of this NPC.
      */
-    private final String description;
+    public String description;
 
     /**
      * The combat level of this NPC.
      */
-    private final int combatLevel;
+    public int combatLevel;
 
     /**
      * The size of this NPC.
      */
-    private final int size;
+    public int size;
 
     /**
      * Determines if this NPC can be attacked.
      */
-    private final boolean attackable;
+    public boolean attackable;
 
     /**
      * Determines if this NPC is aggressive.
      */
-    private final boolean aggressive;
+    public boolean aggressive;
 
     /**
      * Determines if this NPC retreats.
      */
-    private final boolean retreats;
+    public boolean retreats;
 
     /**
      * Determines if this NPC is poisonous.
      */
-    private final boolean poisonous;
+    public boolean poisonous;
 
     /**
      * The time it takes for this NPC to respawn.
      */
-    private final int respawnTime;
+    public int respawnTime;
 
     /**
      * The max hit of this NPC.
      */
-    private final int maxHit;
+    public int maxHit;
 
     /**
      * The maximum amount of hitpoints this NPC has.
      */
-    private final int hitpoints;
+    public int hitpoints;
 
     /**
      * The attack speed of this NPC.
      */
-    private final int attackSpeed;
+    public int attackSpeed;
 
     /**
      * The attack animation of this NPC.
      */
-    private final int attackAnimation;
+    public int attackAnimation;
 
     /**
      * The defence animation of this NPC.
      */
-    private final int defenceAnimation;
+    public int defenceAnimation;
 
     /**
      * The death animation of this NPC.
      */
-    private final int deathAnimation;
+    public int deathAnimation;
 
     /**
      * The attack bonus of this NPC.
      */
-    private final int attackBonus;
+    public int attackBonus;
 
     /**
      * The melee defence bonus of this NPC.
      */
-    private final int meleeDefence;
+    public int meleeDefence;
 
     /**
      * The ranged defence of this NPC.
      */
-    private final int rangedDefence;
+    public int rangedDefence;
 
     /**
      * The magic defence of this NPC.
      */
-    private final int magicDefence;
+    public int magicDefence;
 
     /**
      * Creates a new {@link NpcDefintion}.

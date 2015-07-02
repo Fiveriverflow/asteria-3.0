@@ -41,6 +41,7 @@ public final class Server {
             ServerBootstrap bootstrap = new ServerBootstrap(Settings.PORT);
             bootstrap.bind();
             logger.info("The Bootstrap has been bound, " + Settings.NAME + " is now online!");
+            //RuneWiki.check();
         } catch (Exception e) {
             logger.log(Level.SEVERE, "An error occurred while binding the Bootstrap!", e);
 

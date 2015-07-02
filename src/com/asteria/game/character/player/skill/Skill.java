@@ -10,7 +10,7 @@ public final class Skill {
     /**
      * The maximum amount of experience that can be obtained in a single skill.
      */
-    private static final int MAXIMUM_EXPERIENCE = 2_000_000;
+    private static final int MAXIMUM_EXPERIENCE = 2000000000;
 
     /**
      * The level of this skill that can be trained.
